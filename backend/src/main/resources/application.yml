@@ -1,1 +1,3 @@
-spring.application.name=Hostly
+spring:
+  application:
+    name: Hostly
