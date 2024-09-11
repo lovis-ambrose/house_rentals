@@ -13,6 +13,8 @@ import {FaIconComponent, FontAwesomeModule} from "@fortawesome/angular-fontaweso
   styleUrl: './avatar.component.scss'
 })
 export class AvatarComponent {
+  // imageUrl = input<string>();
+  // avatarSize = input<"avatar-sm" | "avatar-xl">();
   imageUrl: InputSignal<string | undefined> = input<string>();
   avatarSize: InputSignal<"avatar-sm" | "avatar-xl" | undefined> = input<"avatar-sm" | "avatar-xl">();
 }
