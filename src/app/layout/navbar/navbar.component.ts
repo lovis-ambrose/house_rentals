@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {ToolbarModule} from "primeng/toolbar";
@@ -7,6 +7,7 @@ import {CategoryComponent} from "../category/category.component";
 import {AvatarComponent} from "./avatar/avatar.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {MenuItem} from "primeng/api";
+import {ToastService} from "../toast.service";
 
 @Component({
   selector: 'app-navbar',
@@ -28,13 +29,24 @@ export class NavbarComponent implements OnInit {
   guests: string = "Add Guests";
   dates: string = "Add Week";
   currentMenuItems: MenuItem[] | undefined = []
+  // connectedUser: User = {email: this.authService.notConnected};
+
+  toastService = inject(ToastService);
+  // authService = inject(AuthService);
+  dialogService = inject(DialogService);
+  // activatedRoute = inject(ActivatedRoute);
+  // ref: DynamicDialogRef | undefined;
 
 
   ngOnInit(): void {
+    this.authService.fetch(false);
+    // this.extractInformationForSearch();
   }
 
   // login() => this.authService.login();
   // logout() => this.authService.logout();
+  authService: any;
+  connectedUser: string | undefined;
 
   private fetchMenu() {
     return [
@@ -49,4 +61,11 @@ export class NavbarComponent implements OnInit {
     ]
   }
 
+  openNewSearch() {
+
+  }
+
+  openNewListing() {
+
+  }
 }

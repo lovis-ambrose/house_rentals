@@ -1,9 +1,14 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
+import {RouterOutlet} from '@angular/router';
+import {ButtonModule} from 'primeng/button';
 import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {fontAwesomeIcons} from "./shared/font-awesome-icons";
-import {faAirbnb} from "@fortawesome/free-brands-svg-icons";
+import {NavbarComponent} from "./layout/navbar/navbar.component";
+import {CategoryComponent} from "./layout/category/category.component";
+import {FooterComponent} from "./layout/footer/footer.component";
+import {ToastModule} from "primeng/toast";
+import {ToastService} from "./layout/toast.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-root',
@@ -12,20 +17,40 @@ import {faAirbnb} from "@fortawesome/free-brands-svg-icons";
     RouterOutlet,
     ButtonModule,
     FontAwesomeModule,
+    NavbarComponent,
+    CategoryComponent,
+    FooterComponent,
+    ToastModule
+  ],
+  providers: [
+    MessageService,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
   falconLibrary: FaIconLibrary = inject(FaIconLibrary);
+  isListingView = true;
+  toastService = inject(ToastService);
+  messageService = inject(MessageService);
 
   ngOnInit(): void {
     this.initFontAwesome();
+    this.listenToastService();
   }
 
   private initFontAwesome() {
     this.falconLibrary.addIcons(...fontAwesomeIcons);
   }
 
-  protected readonly faAirbnb = faAirbnb;
+  private listenToastService() {
+    this.toastService.sendSub.subscribe({
+      next: newMessage => {
+        if(newMessage && newMessage.summary !== this.toastService.INIT_STATE) {
+          this.messageService.add(newMessage);
+        }
+      }
+    })
+  }
+
 }
