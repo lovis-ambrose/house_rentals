@@ -8,7 +8,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: airbnb-clone-back
+    name: hostly
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -24,11 +24,11 @@ spring:
       ddl-auto: validate
     properties:
       hibernate:
-        default_schema: airbnb_clone
+        default_schema: hostly
   liquibase:
     contexts: dev
     change-log: classpath:db/changelog/master.xml
-    default-schema: airbnb_clone
+    default-schema: hostly
     enabled: true
   #    drop-first: true
   servlet:
@@ -41,7 +41,7 @@ server:
 
 okta:
   oauth2:
-    issuer: https://airbnb-clone.us.auth0.com/
+    issuer: https://hostly.us.auth0.com/
     client-id: ${AUTH0_CLIENT_ID}
     client-secret: ${AUTH0_CLIENT_SECRET}
 
